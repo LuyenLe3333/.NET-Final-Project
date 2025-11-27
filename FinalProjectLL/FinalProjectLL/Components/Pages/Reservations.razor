@@ -1,0 +1,218 @@
+﻿@page "/reservation"
+@rendermode InteractiveServer
+
+<style>
+	.filterWrapper {
+	width: 40%;
+	margin: auto;
+	padding: 5px;
+	border: 2px solid #0059b3;
+	border-radius: 10px;
+	}
+
+	.formWrapper {
+	width: 70%;
+	margin: auto;
+	font-size: 1em;
+	align-items: center;
+	}
+
+	hr {
+	border: 15px solid #0059b3;
+	border-radius: 5px;
+	}
+
+	label, input[type=text], select, input[type=date], input[type=time] {
+	width: 200px;
+	}
+
+	h1,h2 {
+		font-size: 2em;
+		color: #0059b3
+	}
+</style>
+
+<h1>Reservations</h1>
+
+<!--New Reservation Form-->
+<div class="formWrapper">
+	<label>Reservation Name:</label>
+	<input class="col-form-label col-form-label-sm mt-1" type="text" @bind="name" />
+	<br />
+
+	<label>Date:</label>
+	<input class="col-form-label col-form-label-sm mt-1" type="date" @bind="date" />
+	<br />
+
+	<label>Time:</label>
+	<input class="col-form-label col-form-label-sm mt-1" type="time" @bind="time" />
+	<br />
+
+	<label>Bill Total:</label>
+	<input class="col-form-label col-form-label-sm mt-1" type="text" @bind="total" />
+	<br />
+
+	<label>Paid:</label>
+	<input class="form-check-input mt-1" type="checkbox" @bind="paid" />
+	<br />
+
+	<button class="btn btn-primary" @onclick="AddReservation">Submit</button>
+</div>
+<hr />
+<br />
+
+<h2>Current Reservations & Receipts (@reservations.Count())</h2>
+
+<div class="filterWrapper">
+	<h5>Choose a Filter:</h5>
+
+	<input class="form-check-input" type="radio" name="filter" value="Reserved" @onclick="FilterReserved" />
+	<label style="width: 80px">Reserved</label>
+
+	<input class="form-check-input" type="radio" name="filter" value="Canceled" @onclick="FilterCanceled" />
+	<label style="width: 80px">Canceled</label>
+
+	<input class="form-check-input" type="radio" name="filter" value="Paid" @onclick="FilterPaid" />
+	<label style="width: 80px">Paid</label>
+
+	<input class="form-check-input" type="radio" name="filter" value="ViewAll" @onclick="FilterAll" />
+	<label style="width: 80px">View All</label>
+
+</div>
+<br />
+
+<!-- HTML table display of data-->
+<table class="table">
+	<thead>
+		<tr class="table-primary">
+			<th>Reservation #</th>
+			<th>Reservation Status</th>
+			<th>Name</th>
+			<th>Date</th>
+			<th>Time</th>
+			<th>Paid?</th>
+			<th>Total</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in reservations)
+		{
+			<tr class="table-light">
+				<td>@item.ReservationNum</td>
+
+				<!--0=Paid, 1=Reserved, 2=Canceled-->
+				<td>
+					@if (item.Paid)
+					{
+						<p>Paid</p>
+					}
+					else if (item.ReservationStat == 1) 
+					{
+						<p>Reserved</p>
+					} 
+					else
+					{
+						<p>Canceled</p>
+					}
+				</td>
+
+				<td>@item.Name</td>
+				<td>@item.ReservationDate.ToShortDateString()</td>
+				<td>@item.Time</td>
+				
+				<td><input class="form-check-input" type="checkbox" @bind="item.Paid" /></td>
+
+				<td>@item.Total.ToString("C")</td>
+			</tr>
+		}
+	</tbody>
+
+</table>
+
+@code {
+	private List<ReservationReceipt> reservations = ExistingReservations();
+	private List<ReservationReceipt> allReservations = ExistingReservations();
+
+	string name = "";
+	DateTime date = DateTime.Today;
+	TimeOnly time = new TimeOnly(12, 0, 0);
+	bool paid = false;
+	double total = 0;
+
+	static List<ReservationReceipt> ExistingReservations() {
+		List<ReservationReceipt> items = new();
+
+		//0=Paid, 1=Reserved, 2=Canceled
+		ReservationReceipt r1 = new ReservationReceipt(0, "BRIGHT", DateTime.Parse("4/3/2025"), new TimeOnly(19, 30, 0), true, 54.23);
+		ReservationReceipt r2 = new ReservationReceipt(0, "DOE", DateTime.Parse("4/10/2025"), new TimeOnly(19, 30, 0), true, 120.22);
+		ReservationReceipt r3 = new ReservationReceipt(2, "BRIGHT", DateTime.Parse("4/30/2025"), new TimeOnly(19, 55, 0), false, 0.00);
+		ReservationReceipt r4 = new ReservationReceipt(1, "MACKEY", DateTime.Parse("5/3/2025"), new TimeOnly(20, 55, 0), false, 0.00);
+		ReservationReceipt r5 = new ReservationReceipt(1, "CUEVAS", DateTime.Parse("6/27/2025"), new TimeOnly(18, 55, 0), false, 0.00);
+		ReservationReceipt r6 = new ReservationReceipt(2, "HIGHTOWER", DateTime.Parse("5/9/2025"), new TimeOnly(17, 30, 0), false, 0.00);
+		ReservationReceipt r7 = new ReservationReceipt(2, "FULLENWEILER", DateTime.Parse("4/5/2025"), new TimeOnly(15, 20, 0), false, 0.00);
+		ReservationReceipt r8 = new ReservationReceipt(1, "MICKEY", DateTime.Parse("6/20/2025"), new TimeOnly(16, 00, 0), false, 0.00);
+		ReservationReceipt r9 = new ReservationReceipt(1, "THOMAS", DateTime.Parse("5/26/2025"), new TimeOnly(12, 40, 0), false, 0.00);
+
+		items.Add(r1);
+		items.Add(r2);
+		items.Add(r3);
+		items.Add(r4);
+		items.Add(r5);
+		items.Add(r6);
+		items.Add(r7);
+		items.Add(r8);
+		items.Add(r9);
+
+		return items;
+	}
+
+	//method for adding a new reservation
+	void AddReservation()
+	{
+		ReservationReceipt r = new ReservationReceipt(name, date, time, paid, total);
+		allReservations.Add(r);
+
+		name = string.Empty;
+		date = DateTime.Today;
+		time = new TimeOnly(12, 0, 0);
+		paid = false;
+		total = 0;
+
+		reservations.Clear();
+		foreach (var item in allReservations)
+		{
+			reservations.Add(item);
+		}
+	}
+
+	void FilterPaid()
+	{
+		reservations.Clear();
+
+		reservations = allReservations.Where(r => r.Paid == true).ToList();
+	}
+
+	void FilterReserved()
+	{
+		reservations.Clear();
+
+		reservations = allReservations.Where(r => r.ReservationStat == 1).ToList();
+	}
+
+	void FilterCanceled()
+	{
+		reservations.Clear();
+
+		reservations = allReservations.Where(r => r.ReservationStat == 2).ToList();
+	}
+
+	void FilterAll()
+	{
+		reservations.Clear();
+
+		foreach (var item in allReservations)
+		{
+			reservations.Add(item);
+		}
+	}
+}

@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\lle40\\source\\repos\\FinalProjectLL\\FinalProjectLL\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\FinalProjectLL.bundle.scp.css",
+      "PackagePath": "staticwebassets\\FinalProjectLL.on973z9jo6.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\lle40\\source\\repos\\FinalProjectLL\\FinalProjectLL\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\lle40\\source\\repos\\FinalProjectLL\\FinalProjectLL\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\lle40\\source\\repos\\FinalProjectLL\\FinalProjectLL\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\lle40\\source\\repos\\FinalProjectLL\\FinalProjectLL\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.FinalProjectLL.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.FinalProjectLL.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.FinalProjectLL.props",
+      "PackagePath": "build\\FinalProjectLL.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.FinalProjectLL.props",
+      "PackagePath": "buildMultiTargeting\\FinalProjectLL.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.FinalProjectLL.props",
+      "PackagePath": "buildTransitive\\FinalProjectLL.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
