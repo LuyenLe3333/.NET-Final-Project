@@ -1,4 +1,4 @@
-# Final Project .NET
+# Restaurant Blazer App
 Project is designed in **Blazer application** to track new restaurant reservations/receipts. Each page includes use of **C#**, **CSS**, **HTML** and **Bootstrap**.
 
 ## About Page
